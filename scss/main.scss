@@ -1,0 +1,639 @@
+@import "./variables";
+@import "./reset";
+@import "./mixins";
+@import "./utils";
+
+// HEADER
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: #ffffff;
+  @include flex(center); //MIXINS
+  min-height: 100px;
+  box-shadow: 0 8px 6px -6px #999999;
+
+  .navbar {
+    @include flex(space-between, stretch, column);
+    height: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    @include sm {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    &-top {
+      @include flex(space-between);
+      flex: 1;
+
+      img {
+        max-width: 235px;
+      }
+    }
+
+    .menu-toggle {
+      @include flex(center);
+      padding: 5px;
+      color: $primary-color;
+      border: 2px solid $primary-color;
+      border-radius: 5px;
+      font-size: 25px;
+      cursor: pointer;
+
+      @include lg {
+        display: none;
+      }
+    }
+
+    .nav-list {
+      display: none;
+
+      @include lg {
+        display: flex;
+      }
+
+      a {
+        padding: 5px 15px;
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+
+      .active {
+        color: $primary-color;
+      }
+    }
+
+    .navbar-button {
+      margin-top: 10px;
+
+      @include sm {
+        margin: 0 0 0 10px;
+      }
+
+      .btn {
+        display: block;
+      }
+    }
+  }
+}
+
+.sidebar {
+  position: fixed;
+  left: -992px;
+  top: 136.6px;
+  z-index: 999;
+  width: 100%;
+  height: calc(100vh - 136.6px);
+  background-color: $primary-color;
+  opacity: 0.3;
+  transition: all 0.5s ease-in-out;
+
+  &.open {
+    left: 0;
+    opacity: 1;
+  }
+
+  @include sm {
+    top: 100px;
+    height: calc(100vh - 100px);
+  }
+
+  @include lg {
+    display: none;
+  }
+
+  &-nav-list {
+    padding: 10px;
+
+    li {
+      padding: 10px;
+      text-align: center;
+
+      a {
+        color: #ffffff;
+        padding: 5px;
+        font-size: 19px;
+
+        &:hover {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+}
+
+// BANNER
+
+main {
+  margin-top: 136.6px;
+
+  @include sm {
+    margin-top: 100px;
+  }
+}
+
+.banner {
+  min-height: 450px;
+  background: url("./images/slide1.png") no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  overflow: hidden;
+
+  @include md {
+    @include flex(stretch, center);
+  }
+
+  .container {
+    @include grid(1, 10px);
+
+    @include md {
+      @include grid(2, 10px);
+    }
+
+    .banner-content {
+      font-size: 30px;
+      color: #ffffff;
+
+      @include md {
+        @include flex(center, center, column);
+      }
+
+      h2,
+      p,
+      .btn {
+        margin: 25px 0;
+      }
+
+      .btn {
+        background-color: #ffffff;
+        color: $primary-color;
+        font-size: 18px;
+        border: 1px solid $secondary-color;
+
+        &:hover {
+          background-color: #000000;
+          color: #ffffff;
+        }
+      }
+    }
+
+    .banner-image {
+      @include md {
+        width: 165%;
+        margin-top: 100px;
+      }
+    }
+  }
+}
+
+// ABOUT
+
+.about {
+  margin: 50px 0;
+
+  &-items {
+    text-align: center;
+
+    .about-item {
+      margin-bottom: 20px;
+
+      @include sm {
+        @include grid(2, 20px);
+
+        &:nth-child(even) {
+          .about-item-image {
+            order: -1;
+          }
+        }
+      }
+
+      &-content {
+        h1 {
+          margin: 10px 0 20px;
+          font-size: 35px;
+          background: linear-gradient(
+            to right,
+            $primary-color 0%,
+            $secondary-color 100%
+          );
+          background-clip: text;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+
+        p {
+          margin: 10px 0;
+        }
+
+        @include sm {
+          @include flex(center, flex-start, column);
+        }
+      }
+
+      &-image {
+        img {
+          max-width: 300px;
+        }
+      }
+    }
+  }
+}
+
+// SERVICES
+
+.services {
+  .container {
+    @include sm {
+      @include grid(2, 15px);
+    }
+
+    @include md {
+      @include grid(3, 20px);
+    }
+
+    .service {
+      padding: 25px;
+      margin: 80px 0;
+      background-color: #ffffff;
+      text-align: center;
+
+      &-icon {
+        width: 125px;
+        height: 125px;
+        margin: -85px 0 30px;
+        padding: 5px;
+        border: 5px solid #eeeeee;
+        border-radius: 50%;
+        background-color: #ffffff;
+
+        @include md {
+          width: 160px;
+          height: 160px;
+          margin: -110px 0 30px;
+        }
+      }
+
+      p {
+        padding: 50px;
+      }
+
+      a {
+        color: #333333;
+      }
+    }
+  }
+}
+
+// FEATURES
+
+.features {
+  margin: 50px 0;
+
+  &-grid {
+    @include md {
+      @include grid(3, 50px);
+    }
+
+    .feature-item {
+      @include flex(flex-start, center, row, nowrap);
+      margin-bottom: 20px;
+      padding: 20px 0;
+      border-bottom: 1px solid #dddddd;
+
+      &-icon {
+        padding: 20px;
+        margin-right: 20px;
+        border: 2px solid $secondary-color;
+        border-radius: 50%;
+        text-align: center;
+        color: $secondary-color;
+
+        i {
+          width: 45px;
+          font-size: 40px;
+        }
+
+        &:hover {
+          background-color: $primary-color;
+          color: #ffffff;
+          border-color: $primary-color;
+        }
+      }
+    }
+
+    .feature-image {
+      max-width: 200px;
+      margin: auto;
+
+      @include md {
+        max-width: 350px;
+      }
+    }
+  }
+}
+
+// STEPS
+
+.steps {
+  margin: 50px 0;
+  color: #ffffff;
+
+  .section-title {
+    color: #ffffff;
+  }
+
+  .step-list {
+    text-align: center;
+    @include sm {
+      @include grid(2, 10px);
+    }
+
+    @include md {
+      @include grid(4, 20px);
+    }
+
+    .step-item {
+      margin: 30px 0;
+
+      i {
+        font-size: 60px;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+// TABLE PRICE
+
+.table-price {
+  margin: 100px 0;
+
+  .price-grid {
+    @include sm {
+      @include grid(2, 20px);
+    }
+
+    @include md {
+      @include grid(3, 30px);
+    }
+
+    .price-card {
+      padding: 15px;
+      margin-bottom: 30px;
+      text-align: center;
+      border: 1px solid #dddddd;
+
+      &:nth-child(2) {
+        h2 {
+          background-color: $primary-color;
+        }
+
+        .btn {
+          background-color: $secondary-color;
+
+          &:hover {
+            background-color: #000000;
+            color: #ffffff;
+          }
+        }
+      }
+
+      h2 {
+        padding: 30px;
+        margin-bottom: 15px;
+        background-color: $secondary-color;
+        color: #ffffff;
+        text-transform: uppercase;
+      }
+
+      .price {
+        padding: 10px 10px 20px;
+        margin: 10px 50px;
+        color: $primary-color;
+        border-bottom: 1px solid #dddddd;
+
+        p {
+          font-size: 40px;
+        }
+
+        small {
+          font-size: 20px;
+        }
+      }
+
+      .card-list {
+        padding: 30px 0;
+
+        li {
+          font-size: 20px;
+          color: #333333;
+          line-height: 3;
+        }
+      }
+    }
+  }
+}
+
+// CONTACT
+
+.contact {
+  margin: 50px 0;
+  background-color: $primary-color;
+  color: #ffffff;
+
+  @include md {
+    @include grid(2);
+  }
+
+  .google-map {
+    width: 100%;
+    min-height: 400px;
+  }
+
+  .contact-form {
+    width: 500px;
+    max-width: 100%;
+    padding: 25px;
+    margin: auto;
+
+    .section-title {
+      color: #ffffff;
+    }
+
+    p {
+      margin: 40px 0;
+    }
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 13px;
+      border: none;
+      outline: none;
+    }
+
+    .btn {
+      background-color: $secondary-color;
+
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+  }
+}
+
+// FOOTER
+
+.footer {
+  &-top {
+    padding-top: 70px;
+    padding-bottom: 40px;
+
+    @include sm {
+      @include grid(2, 20px);
+    }
+
+    @include md {
+      @include grid(4, 40px);
+    }
+
+    .footer-item {
+      margin-bottom: 50px;
+
+      h3 {
+        margin-bottom: 20px;
+        color: #333333;
+      }
+    }
+
+    .brand {
+      .footer-logo {
+        width: 75%;
+        margin-bottom: 30px;
+      }
+    }
+
+    .social {
+      li {
+        padding: 20px 0;
+        border-bottom: 1px dashed #dddddd;
+        cursor: pointer;
+
+        i {
+          margin-right: 10px;
+        }
+
+        &:hover {
+          color: $primary-color;
+        }
+      }
+    }
+
+    .blog {
+      .post {
+        display: flex;
+        margin-bottom: 10px;
+
+        img {
+          max-width: 100px;
+          margin-right: 15px;
+        }
+
+        &-date {
+          margin-bottom: 10px;
+        }
+
+        &-head {
+          color: #333333;
+        }
+      }
+    }
+  }
+
+  &-bottom {
+    padding: 20px;
+    background-color: $primary-color;
+    color: #ffffff;
+    text-align: center;
+  }
+}
+
+// PAGES
+
+.page-banner {
+  @include flex(flex-start, flex-start);
+  width: 100%;
+  height: 150px;
+  position: relative;
+  padding-top: 20px;
+  background: url("./images/slide1.png") no-repeat;
+  background-size: cover;
+  background-position: bottom center;
+  font-size: 25px;
+  color: #ffffff;
+
+  @include sm {
+    height: 200px;
+    padding-top: 50px;
+  }
+
+  @include md {
+    height: 250px;
+    padding-top: 80px;
+  }
+
+  @include lg {
+    height: 300px;
+  }
+}
+
+.screenshoots {
+  &-grid {
+    @include grid(2);
+
+    @include md {
+      @include grid(4);
+    }
+  }
+}
+
+.team {
+  .container {
+    @include sm {
+      @include grid(2, 20px);
+    }
+
+    @include md {
+      @include grid(4, 40px);
+    }
+
+    .team-card {
+      max-width: 300px;
+      margin: 0 auto 20px;
+      text-align: center;
+
+      .card-text {
+        padding: 20px;
+        line-height: 2;
+
+        h3 {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
